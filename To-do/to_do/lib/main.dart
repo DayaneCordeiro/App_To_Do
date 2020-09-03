@@ -46,13 +46,18 @@ class _MyHomePageState extends State<MyHomePage> {
         /* Quantidade que a lista possui naquele momento */
         itemBuilder: (BuildContext context, int index) {
           /* Função que determina como os itens devem ser construidos na tela */
-          final item = widget.items[index]; // Limpando o código
+          final item = widget.items[index]; /* Limpando o código */
 
           return CheckboxListTile(
             title: Text(item.title),
             key: Key(item.title),
             value: item.done,
-            onChanged: (value) {},
+            onChanged: (value) {
+              /* Avisa para a página que o item mudou */
+              setState(() {
+                item.done = value;
+              });
+            },
           );
         },
       ),

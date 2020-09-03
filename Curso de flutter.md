@@ -109,6 +109,7 @@ class MyHomePage extends StatefulWidget {
 ~~~
 
 * classe estado:
+
 ~~~
 class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
@@ -130,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 ### CheckboxListTile
 * Modificamos o retorno do itemBuilder para os checkboxes
+
 ~~~
 itemBuilder: (BuildContext context, int index) {
   /* Função que determina como os itens devem ser construidos na tela */
@@ -145,6 +147,24 @@ itemBuilder: (BuildContext context, int index) {
 ~~~
 
 ### SetState
+* Para mudar o estado do checkbox é necessário além de permitir que o estado mude, mandar a tela se atualizar.
+  * É necessário usar o **setState(() {})** -> só funciona dentro de um StatefulWidget.
+    * O setState é construído dessa forma por que recebe uma função anônima como parâmetro.
+    
+~~~
+return CheckboxListTile(
+  title: Text(item.title),
+  key: Key(item.title),
+  value: item.done,
+  onChanged: (value) {
+    /* Avisa para a página que o item mudou */
+    setState(() {
+      item.done = value;
+    });
+  },
+);
+~~~
+
 
 ### TextFormField
 
