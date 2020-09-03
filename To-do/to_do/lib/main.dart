@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
       newTaskController.clear();
+      save();
     });
   }
 
@@ -61,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void remove(int index) {
     setState(() {
       widget.items.removeAt(index);
+      save();
     });
   }
 
@@ -87,6 +89,13 @@ class _MyHomePageState extends State<MyHomePage> {
         widget.items = result;
       });
     }
+  }
+
+  /// @brief Salva um item no shared preferences
+  save() async {
+    var preferences = await SharedPreferences.getInstance();
+    /* Chave: data, Valor: item que será trasnformado em Json */
+    await preferences.setString('data', jsonEncode(widget.items));
   }
 
   /// @brief Chama o método load para a página
@@ -130,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 /* Avisa para a página que o item mudou */
                 setState(() {
                   item.done = value;
+                  save();
                 });
               },
             ),

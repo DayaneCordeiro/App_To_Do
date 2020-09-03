@@ -342,3 +342,18 @@ _MyHomePageState() {
 ~~~
 
 ### Salvando os itens
+* Inserimos a função que será responsavel por transformar o item em Json e salvar
+
+~~~
+/// @brief Salva um item no shared preferences
+save() async {
+  var preferences = await SharedPreferences.getInstance();
+  /* Chave: data, Valor: item que será trasnformado em Json */
+  await preferences.setString('data', jsonEncode(widget.items));
+}
+~~~
+
+* E chamamos essa função em todas as ocasiões que ocorrem alterações de estado:
+  * dentro no método add()
+  * dentro do método remove()
+  * dentro do dismissible no build
