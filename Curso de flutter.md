@@ -1,4 +1,4 @@
-# Flutter
+# Flutter 🤓
 
 * no terminal digita flutter devices:
 	* mostra todos os emuladores ativos
@@ -127,3 +127,33 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 ~~~
+
+### CheckboxListTile
+* Modificamos o retorno do itemBuilder para os checkboxes
+~~~
+itemBuilder: (BuildContext context, int index) {
+  /* Função que determina como os itens devem ser construidos na tela */
+  final item = widget.items[index]; // Limpando o código
+
+  return CheckboxListTile(
+    title: Text(item.title),
+    key: Key(item.title),
+    value: item.done,
+    onChanged: (value) {},
+  );
+},
+~~~
+
+### SetState
+
+### TextFormField
+
+### Adicionando um item
+
+### Removendo um item
+
+### Instalando pacotes
+
+### Lendo os itens
+
+### Salvando os itens
