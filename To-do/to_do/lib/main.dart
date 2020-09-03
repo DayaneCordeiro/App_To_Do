@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'models/item.dart';
 
 void main() {
@@ -36,10 +37,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var newTaskController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Todo List'),
+        /* Cria uma caixa de texto */
+        title: TextFormField(
+          controller: newTaskController,
+          keyboardType: TextInputType.text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+          decoration: InputDecoration(
+            labelText: "Nova Tarefa",
+            labelStyle: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
       body: ListView.builder(
         itemCount: widget.items.length,

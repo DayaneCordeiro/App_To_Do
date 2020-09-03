@@ -150,7 +150,7 @@ itemBuilder: (BuildContext context, int index) {
 * Para mudar o estado do checkbox é necessário além de permitir que o estado mude, mandar a tela se atualizar.
   * É necessário usar o **setState(() {})** -> só funciona dentro de um StatefulWidget.
     * O setState é construído dessa forma por que recebe uma função anônima como parâmetro.
-    
+
 ~~~
 return CheckboxListTile(
   title: Text(item.title),
@@ -165,8 +165,54 @@ return CheckboxListTile(
 );
 ~~~
 
-
 ### TextFormField
+* Criamos na AppBar o input que receberá o texto da tarefa
+
+~~~
+appBar: AppBar(
+  /* Cria uma caixa de texto */
+  title: TextFormField(
+    keyboardType: TextInputType.text,
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+    ),
+    decoration: InputDecoration(
+      labelText: "Nova Tarefa",
+      labelStyle: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+  ),
+),
+~~~
+
+* Para pegar aquilo que o usuário digitou no input usamos o TextEditingController
+
+~~~
+var newTaskController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        /* Cria uma caixa de texto */
+        title: TextFormField(
+          controller: newTaskController,
+          keyboardType: TextInputType.text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+          decoration: InputDecoration(
+            labelText: "Nova Tarefa",
+            labelStyle: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+~~~
 
 ### Adicionando um item
 
