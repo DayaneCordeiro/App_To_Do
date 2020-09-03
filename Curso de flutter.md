@@ -294,6 +294,12 @@ void remove(int index) {
 ~~~
 
 ### Instalando pacotes
+* Aplicação ainda não tem memória e para persistir os dados (quando fecha o app) e como o app é bem pequeno vamos usar a memória no shared preferences
+* No arquivo pubspec.yaml vamos adicionar os pacotes necessários
+  * Importante ressaltar que esse tipo de arquivo (.yaml) é "orientado à identação", se não identar corretamente, não funciona.
+* Dentro de dependencies inserir: shared_preferences: ^0.5.3
+  * Importante fechar a aplicação antes de salvar
+  * Quando salvar o flutter já irá rodar automaticamente o comando pub get e irá instalar as alterações no projeto
 
 ### Lendo os itens
 
