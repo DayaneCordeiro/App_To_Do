@@ -39,6 +39,22 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var newTaskController = TextEditingController();
 
+  /// @brief Recupera o valor do newTaskController e cria um novo item
+  void add() {
+    if (newTaskController.text.isEmpty) return;
+
+    /* Necessário criar dentro do setState para já criar e atualizar a tela de uma vez */
+    setState(() {
+      widget.items.add(
+        Item(
+          title: newTaskController.text,
+          done: false,
+        ),
+      );
+      newTaskController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        /* Determinar que o onpressed chame a função add, não pode usar () */
+        onPressed: add,
+        child: Icon(Icons.add),
+        backgroundColor: Colors.pink,
       ),
     );
   }

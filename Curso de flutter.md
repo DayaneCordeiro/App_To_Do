@@ -215,6 +215,47 @@ var newTaskController = TextEditingController();
 ~~~
 
 ### Adicionando um item
+* Invés de colocarmos o botão de adição dentro da própria appBar, iremos utilizar uma nova propriedade:
+  * floatingActionButton <- identico ao botão + que aparece no app padrão do flutter
+
+~~~
+floatingActionButton: FloatingActionButton(
+  onPressed: () {},
+  child: Icon(Icons.add),
+  backgroundColor: Colors.pink,
+),
+~~~
+
+* Para de fato criar o item iremos adicionar uma função no código
+
+~~~
+/// @brief Recupera o valor do newTaskController e cria um novo item
+  void add() {
+    if (newTaskController.text.isEmpty) return;
+    
+    /* Necessário criar dentro do setState para já criar e atualizar a tela de uma vez */
+    setState(() {
+      widget.items.add(
+        Item(
+          title: newTaskController.text,
+          done: false,
+        ),
+      );
+      newTaskController.clear();
+    });
+  }
+~~~
+
+* Determinamos que o onpressed irá chamar a função add, nesse caso, não podemos usar ()
+
+~~~
+floatingActionButton: FloatingActionButton(
+  /* Determinar que o onpressed chame a função add, não pode usar () */
+  onPressed: add,
+  child: Icon(Icons.add),
+  backgroundColor: Colors.pink,
+),
+~~~
 
 ### Removendo um item
 
