@@ -11,9 +11,15 @@ Como se tratou de um curso básico, não foram consideradas as questões de desi
 
 * Clicando sobre **Nova tarefa** o celular abre um teclado de texto (não funciona no browser) para que o usuário possa inserir a descrição de sua tarefa.
 * Clicando no botão **+** a tarefa é salva no Shared Preferences e exibida na tela.
-* Clicando no chackbox ao lado de cada tarefa, possível declara-lá como aberta ou concluída.
-* Arrastando a tarefa para a direita ou para a esquerda, a tarefa é deletada permanentemente.
-* Ao recarregar a página, as informações persistem.
+* Clicando no **checkbox** ao lado de cada tarefa, é possível declara-lá como aberta ou concluída.
+* **Arrastando a tarefa** para a direita ou para a esquerda, ela é deletada permanentemente.
+* Ao **recarregar a página**, as informações persistem.
 
-![Retrato geral da aplicação]()
+
+![Retrato geral da aplicação](https://github.com/DayaneCordeiro/Curso_de_Flutter/blob/master/Imagens/Retrato%20geral.PNG)
+
+### Apresentação
+
+
+![Apresentação do sistema](https://github.com/DayaneCordeiro/Curso_de_Flutter/blob/master/Imagens/Apresenta%C3%A7%C3%A3o.gif)
 
