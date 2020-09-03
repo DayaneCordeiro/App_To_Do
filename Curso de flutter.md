@@ -300,7 +300,45 @@ void remove(int index) {
 * Dentro de dependencies inserir: shared_preferences: ^0.5.3
   * Importante fechar a aplicação antes de salvar
   * Quando salvar o flutter já irá rodar automaticamente o comando pub get e irá instalar as alterações no projeto
+  * importar na main o 'package:shared_preferences/shared_preferences.dart'
 
 ### Lendo os itens
+* Leitura de dados não pode ser real time então a função de load precisa ser assíncrona
+* Vamos criar a função de load e a primeira coisa a fazer é instanciar o SharedPreferences
+
+~~~
+Future load() async {
+  /* Primeiro passo: instanciar o shared preferences */
+  /* Await: não prossegue com a função enquanto o shared preferences não estiver finalizado */
+  var preferences = await SharedPreferences.getInstance();
+  var data = preferences.getString('data');
+
+  if (data != null) {
+    /* Transfosmar a string em Json */
+    /* Iterable: coluna que permite iterações */
+    Iterable decoded = jsonDecode(data);
+
+    /* Percorrer o Json e adicionar os itens na lista */
+    /* map nesse caso funciona como um foreach */
+    /* Pega o item no formato Json e insere no list*/
+    List<Item> result = decoded.map((x) => Item.fromJson(x)).toList();
+
+    /* Atualiza a página */
+    setState(() {
+      widget.items = result;
+    });
+  }
+}
+~~~
+
+* Posteriormente precisamos chamar a função, mas fazendo isso no build seria ruim por que chamaria ela toda hora, então chamamos o construtor da _MyHomePageState com o método load dentro
+
+~~~
+/// @brief Chama o método load para a página
+_MyHomePageState() {
+  /* Não pode chamar no build, pois se não iria chamar o load toda hora */
+  load();
+}
+~~~
 
 ### Salvando os itens

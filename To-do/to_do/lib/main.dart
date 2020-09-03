@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'models/item.dart';
 
 void main() {
@@ -27,9 +29,9 @@ class MyHomePage extends StatefulWidget {
   /* Essa página será chamada apenas uma vez então criamos o método construtor */
   MyHomePage() {
     items = [];
-    items.add(Item(title: "Item 1", done: false));
-    items.add(Item(title: "Item 2", done: true));
-    items.add(Item(title: "Item 3", done: false));
+    // items.add(Item(title: "Item 1", done: false));
+    // items.add(Item(title: "Item 2", done: true));
+    // items.add(Item(title: "Item 3", done: false));
   }
 
   @override
@@ -60,6 +62,37 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       widget.items.removeAt(index);
     });
+  }
+
+  /// @brief Carrega os dados que estão guardados
+  /* Future é uma promessa */
+  Future load() async {
+    /* Primeiro passo: instanciar o shared preferences */
+    /* Await: não prossegue com a função enquanto o shared preferences não estiver finalizado */
+    var preferences = await SharedPreferences.getInstance();
+    var data = preferences.getString('data');
+
+    if (data != null) {
+      /* Transfosmar a string em Json */
+      /* Iterable: coluna que permite iterações */
+      Iterable decoded = jsonDecode(data);
+
+      /* Percorrer o Json e adicionar os itens na lista */
+      /* map nesse caso funciona como um foreach */
+      /* Pega o item no formato Json e insere no list*/
+      List<Item> result = decoded.map((x) => Item.fromJson(x)).toList();
+
+      /* Atualiza a página */
+      setState(() {
+        widget.items = result;
+      });
+    }
+  }
+
+  /// @brief Chama o método load para a página
+  _MyHomePageState() {
+    /* Não pode chamar no build, pois se não iria chamar o load toda hora */
+    load();
   }
 
   @override
