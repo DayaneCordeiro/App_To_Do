@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ToDo App',
-      debugShowCheckedModeBanner:
-          false, //tira aquela tirinha de debug que fica na tela
+      debugShowCheckedModeBanner: false,
+      /* remove aquela tirinha de debug que fica na tela */
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -55,6 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// @brief Remove uma determinada tarefa quando ela é arrastada pro lado
+  void remove(int index) {
+    setState(() {
+      widget.items.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,21 +83,29 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: ListView.builder(
-        itemCount: widget.items.length,
         /* Quantidade que a lista possui naquele momento */
+        itemCount: widget.items.length,
         itemBuilder: (BuildContext context, int index) {
           /* Função que determina como os itens devem ser construidos na tela */
           final item = widget.items[index]; /* Limpando o código */
 
-          return CheckboxListTile(
-            title: Text(item.title),
+          return Dismissible(
+            child: CheckboxListTile(
+              title: Text(item.title),
+              value: item.done,
+              onChanged: (value) {
+                /* Avisa para a página que o item mudou */
+                setState(() {
+                  item.done = value;
+                });
+              },
+            ),
             key: Key(item.title),
-            value: item.done,
-            onChanged: (value) {
-              /* Avisa para a página que o item mudou */
-              setState(() {
-                item.done = value;
-              });
+            background: Container(
+              color: Colors.redAccent.withOpacity(0.2),
+            ),
+            onDismissed: (direction) {
+              remove(index);
             },
           );
         },

@@ -232,7 +232,7 @@ floatingActionButton: FloatingActionButton(
 /// @brief Recupera o valor do newTaskController e cria um novo item
   void add() {
     if (newTaskController.text.isEmpty) return;
-    
+
     /* Necessário criar dentro do setState para já criar e atualizar a tela de uma vez */
     setState(() {
       widget.items.add(
@@ -258,6 +258,40 @@ floatingActionButton: FloatingActionButton(
 ~~~
 
 ### Removendo um item
+* Vamos remover com o efeito de arrastar para o lado, para isso vamos mudar o checkboxtile para dismissible
+
+~~~
+return Dismissible(
+  child: CheckboxListTile(
+    title: Text(item.title),
+    value: item.done,
+    onChanged: (value) {
+      /* Avisa para a página que o item mudou */
+      setState(() {
+        item.done = value;
+      });
+    },
+  ),
+  key: Key(item.title),
+  background: Container(
+    color: Colors.redAccent.withOpacity(0.2),
+  ),
+  onDismissed: (direction) {
+    remove(index);
+  },
+);
+~~~
+
+* E para funcionar internamente (pois no front já funciona), criamos a função de remover
+
+~~~
+/// @brief Remove uma determinada tarefa quando ela é arrastada pro lado
+void remove(int index) {
+  setState(() {
+    widget.items.removeAt(index);
+  });
+}
+~~~
 
 ### Instalando pacotes
 
